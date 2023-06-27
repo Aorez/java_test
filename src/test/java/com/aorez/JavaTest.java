@@ -18,4 +18,8 @@ public class JavaTest {
         String group = matcher.group(0);
         System.out.println(group);//111
     }
+
+    @Test
+    public void test2() {
+    }
 }
