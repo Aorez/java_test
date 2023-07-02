@@ -65,7 +65,7 @@ public class 剑指Offer59I滑动窗口的最大值 {
     @Test
     public void test() {
         Solution solution = new Solution();
-        int[] a1 = {1,3,-1,-3,5,3,6,7};
+        int[] a1 = {1, 3, -1, -3, 5, 3, 6, 7};
         int k1 = 3;
         System.out.println(Arrays.toString(solution.maxSlidingWindow(a1, k1)));
     }
@@ -107,6 +107,67 @@ public class 剑指Offer59I滑动窗口的最大值 {
                     deque.pollFirst();
                 }
                 result[i] = nums[deque.peekFirst()];
+            }
+
+            return result;
+        }
+    }
+
+    //Pretreatment
+    class Solution4 {
+        public int[] maxSlidingWindow(int[] nums, int k) {
+            int len = nums.length;
+            int[] prefixMax = new int[len];
+            int[] suffixMax = new int[len];
+            for (int i = 0; i < len; i++) {
+                if (i % k == 0) {
+                    prefixMax[i] = nums[i];
+                } else {
+                    prefixMax[i] = Math.max(prefixMax[i - 1], nums[i]);
+                }
+            }
+            suffixMax[len - 1] = nums[len - 1];
+            for (int i = len - 2; i >= 0; i--) {
+                if (i % k == 0) {
+                    suffixMax[i] = nums[i];
+                } else {
+                    suffixMax[i] = Math.max(suffixMax[i + 1], nums[i]);
+                }
+            }
+            int[] result = new int[len - k + 1];
+            for (int i = 0; i < result.length; i++) {
+                result[i] = Math.max(suffixMax[i], prefixMax[i + k - 1]);
+            }
+
+            return result;
+        }
+    }
+
+    //Pretreatment2
+    //Differ between "i%k==0" and "i+1%k==0"
+    class Solution5 {
+        public int[] maxSlidingWindow(int[] nums, int k) {
+            int len = nums.length;
+            int[] prefixMax = new int[len];
+            int[] suffixMax = new int[len];
+            for (int i = 0; i < len; i++) {
+                if (i % k == 0) {
+                    prefixMax[i] = nums[i];
+                } else {
+                    prefixMax[i] = Math.max(prefixMax[i - 1], nums[i]);
+                }
+            }
+            suffixMax[len - 1] = nums[len - 1];
+            for (int i = len - 2; i >= 0; i--) {
+                if ((i + 1) % k == 0) {
+                    suffixMax[i] = nums[i];
+                } else {
+                    suffixMax[i] = Math.max(suffixMax[i + 1], nums[i]);
+                }
+            }
+            int[] result = new int[len - k + 1];
+            for (int i = 0; i < result.length; i++) {
+                result[i] = Math.max(suffixMax[i], prefixMax[i + k - 1]);
             }
 
             return result;
