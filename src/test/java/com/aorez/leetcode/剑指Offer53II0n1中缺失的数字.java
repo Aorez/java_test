@@ -4,7 +4,6 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-// fixme:Bisection
 //因为二分法遇到下标是1和2的时候，二分取的值为1，所以不能用left=mid，会导致无限循环，要用left=mid+1
 //而可以用right=mid，也可以用right=mid-1
 //如果用了left=mid+1，right=mid-1，寻找的目标可能是比target大的，也可能是比target小的
@@ -24,6 +23,8 @@ public class 剑指Offer53II0n1中缺失的数字 {
     // Bisection
     class Solution {
         public int missingNumber(int[] nums) {
+            //0或length的数字在二分查找中判断不易，因此开局先判断0
+            //结尾return的时候判断length
             if (nums.length == 0 || nums[0] != 0) {
                 return 0;
             }

@@ -7,6 +7,29 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+/*
+请实现一个函数，用来判断一棵二叉树是不是对称的。如果一棵二叉树和它的镜像一样，那么它是对称的。
+例如，二叉树 [1,2,2,3,4,4,3] 是对称的。
+    1
+   / \
+  2   2
+ / \ / \
+3  4 4  3
+但是下面这个 [1,2,2,null,3,null,3] 则不是镜像对称的:
+    1
+   / \
+  2   2
+   \   \
+   3    3
+示例 1：
+输入：root = [1,2,2,3,4,4,3]
+输出：true
+示例 2：
+输入：root = [1,2,2,null,3,null,3]
+输出：false
+限制：
+0 <= 节点个数 <= 1000
+ */
 public class 剑指Offer28对称的二叉树 {
     public static class TreeNode {
         int val;
@@ -18,8 +41,9 @@ public class 剑指Offer28对称的二叉树 {
         }
     }
 
-    //Simulation
     class Solution {
+        //层次遍历
+        //判断每一层是否镜像
         public boolean isSymmetric(TreeNode root) {
             if (root == null) {
                 return true;
@@ -52,7 +76,7 @@ public class 剑指Offer28对称的二叉树 {
                 return node2 == null;
             }
             if (node2 == null) {
-                return node1 == null;
+                return false;
             }
             return node1.val == node2.val;
         }
@@ -80,8 +104,12 @@ public class 剑指Offer28对称的二叉树 {
         System.out.println(solution.isSymmetric(root));
     }
 
-    //Left subtree and right subtree
     class Solution2 {
+        //递归
+        //从根节点的左右孩子开始判断
+        //递归方法两个树节点参数在树中处于镜像的位置
+        //递归调用的时候判断参数1.left和参数2.right是否镜像
+        //参数1.right和参数2.left是否镜像
         public boolean isSymmetric(TreeNode root) {
             if (root == null) {
                 return true;
@@ -122,8 +150,10 @@ public class 剑指Offer28对称的二叉树 {
         System.out.println(solution.isSymmetric(root));
     }
 
-    //Non recursion left tree and right tree
     class Solution3 {
+        //递归的迭代写法
+        //每次都入队一对树节点，这对树节点在树中处于镜像的位置
+        //出队的时候对一对树节点判断是否镜像即可
         public boolean isSymmetric(TreeNode root) {
             if (root == null) {
                 return true;

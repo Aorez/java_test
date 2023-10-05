@@ -19,9 +19,21 @@ public class 剑指Offer50第一个只出现一次的字符 {
 
     @Test
     public void test() {
+        String s = "aabbcddefgg";
+        String ss = "aabb";
+
+        Solution1 solution1 = new Solution1();
+//        System.out.println(solution1.firstUniqChar(ss));
+//        System.out.println(solution1.firstUniqChar(s));
+
+        Solution3 solution3 = new Solution3();
+        System.out.println(solution3.firstUniqChar(ss));
+        System.out.println(solution3.firstUniqChar(s));
     }
 
     class Solution1 {
+        //空间26个字母
+        //时间n+26
         public char firstUniqChar(String s) {
             Map<Character, Integer> pos = new HashMap<Character, Integer>();
             //重复出现的位置记录为-1
@@ -30,7 +42,7 @@ public class 剑指Offer50第一个只出现一次的字符 {
                 char c = s.charAt(i);
                 if (pos.containsKey(c)) {
                     //用这个数字表示重复出现，则后面判断下标最小只需比min小即可
-                    pos.put(c, s.length() + 1);
+                    pos.put(c, s.length());
                 }
                 else {
                     pos.put(c, i);
@@ -51,6 +63,8 @@ public class 剑指Offer50第一个只出现一次的字符 {
     }
 
     class Solution2 {
+        //空间26
+        //时间n+26
         public char firstUniqChar(String s) {
             char[] chars = s.toCharArray();
             int[] count = new int[26];
@@ -67,12 +81,16 @@ public class 剑指Offer50第一个只出现一次的字符 {
     }
 
     class Solution3 {
+        //最坏情况
+        //aabbccdd
+        //入队一次后出队一次
+        //时间2n
         public char firstUniqChar(String s) {
             int[] count = new int[26];
             Queue<Character> queue = new LinkedList<Character>();
             for (int i = 0; i < s.length(); i++) {
                 char c = s.charAt(i);
-                int index = count[c - 'a'];
+                int index = c - 'a';
                 if (count[index] == 0) {
                     queue.add(c);
                     count[index] = 1;
